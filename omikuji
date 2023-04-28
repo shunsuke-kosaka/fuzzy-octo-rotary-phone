@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>おみくじアプリ</title>
+  <style>
+    #omikuji-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      animation: none;
+    }
+    
+    #result-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    
+    #result {
+      font-size: 2em;
+    }
+    
+    #play-again-button {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img id="omikuji-box" src="C:\Users\User\Documents\おみくじ箱２.png" width="200" height="200" onclick="shakeOmikuji()">
+  
+  <div id="result-container" style="display: none;">
+    <p id="result"></p>
+    <p id="emoticon"></p>
+    <p id="advice"></p>
+    <p id="lucky-color"></p>
+    <button id="play-again-button" onclick="playAgain()">もう一度おみくじをする</button>
+  </div>
+  
+  <script>
+    function shakeOmikuji() {
+      var omikujiBox = document.getElementById("omikuji-box");
+      omikujiBox.style.animation = "shake 1s";
+      
+      setTimeout(function() {
+        omikujiBox.style.animation = "";
+        showOmikujiResult();
+      }, 1000);
+    }
+    
+    function showOmikujiResult() {
+      var omikujiBox = document.getElementById("omikuji-box");
+      omikujiBox.style.display = "none";
+      
+      var resultContainer = document.getElementById("result-container");
+      resultContainer.style.display = "block";
+      
+      var result = getRandomResult();
+      var resultElement = document.getElementById("result");
+      var emoticonElement = document.getElementById("emoticon");
+      var adviceElement = document.getElementById("advice");
+      var luckyColorElement = document.getElementById("lucky-color");
+      
+      resultElement.textContent = result;
+      
+      if (result === "大吉") {
+        emoticonElement.textContent = "(^_^)v";
+        adviceElement.textContent = "今日はとても良い日です。";
+      } else if (result === "中吉") {
+        emoticonElement.textContent = "(-_-)v";
+        adviceElement.textContent = "頑張れば良い結果が出ます。";
+      } else if (result === "小吉") {
+        emoticonElement.textContent = "(^-^)v";
+        adviceElement.textContent = "ちょっとした運があります。";
+      } else if (result === "吉") {
+        emoticonElement.textContent = "(^o^)v";
+        adviceElement.textContent = "平凡な日ですが、
+        emoticonElement.textContent = "(^o^)v";
+        adviceElement.textContent = "平凡な日ですが、良いことが起こるかも。";
+      } else if (result === "凶") {
+        emoticonElement.textContent = "(>_<)v";
+        adviceElement.textContent = "悪いことが起こるかもしれません。気をつけて。";
+      }
+      
+      var luckyColor = getRandomLuckyColor();
+      luckyColorElement.textContent = "ラッキーカラー: " + luckyColor;
+    }
+    
+    function getRandomResult() {
+      var results = ["大吉", "中吉", "小吉", "吉", "凶"];
+      var randomIndex = Math.floor(Math.random() * results.length);
+      return results[randomIndex];
+    }
+    
+    function getRandomLuckyColor() {
+      var colors = ["赤", "緑", "黄色", "青", "紫"];
+      var randomIndex = Math.floor(Math.random() * colors.length);
+      return colors[randomIndex];
+    }
+    
+    function playAgain() {
+      var omikujiBox = document.getElementById("omikuji-box");
+      omikujiBox.style.display = "block";
+      
+      var resultContainer = document.getElementById("result-container");
+      resultContainer.style.display = "none";
+    }
+  </script>
+</body>
+</html>
